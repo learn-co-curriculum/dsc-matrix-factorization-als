@@ -10,7 +10,7 @@ You will be able to:
 
 - Introduce a learning function for optimal matrix decomposition
 - Learn how ALS functions by alternating between two regularization parameters to reduce loss
-- Understand how ALS is implemented in Spark. 
+- Understand how ALS is implemented in Spark
 
 
 ## Recap Matrix Factorization
