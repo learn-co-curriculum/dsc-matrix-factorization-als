@@ -2,9 +2,12 @@
 # Matrix Factorization with Alternating Least Squares
 
 ## Introduction
-In this lesson, we will look at anopther matrix factorization technique called the alternating least squares. This method can prove to be much more effective and robust than SVD we saw earlier. ALS allows you to set regularization measures and minimize a loss function while optimizing the model parameter `k`.  We will briefly look at the maths behind this approach in this lesson, before putting it into practice next. 
+In this lesson, we will look at another matrix factorization technique called Alternating Least Squares (ALS). This method can prove to be much more effective and robust than SVD we saw earlier. ALS allows you to set regularization measures and minimize a loss function while optimizing the model parameter `k`.  We will briefly look at the maths behind this approach in this lesson, before putting it into practice next. 
 
 ## Objectives
+
+You will be able to:
+
 - Introduce a learning function for optimal matrix decomposition
 - Learn how ALS functions by alternating between two regularization parameters to reduce loss
 - Understand how ALS is implemented in Spark. 
