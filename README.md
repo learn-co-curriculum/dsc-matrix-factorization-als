@@ -15,22 +15,22 @@ You will be able to:
 
 ## Recap Matrix Factorization
 
-In past few lessons, we learned that Matrix factorization functions with following assumptions:
+In the past few lessons, we learned that Matrix factorization functions with the following assumptions:
 
 - Each user can be described by k attributes or features. 
 
 For example, feature 1 could be a number that says how much each user likes sci-fi movies. 2, how much he/she likes horror movies and so on. 
 
-- Each item can be described by an analagous set of k attributes or features. 
+- Each item can be described by an analogous set of k attributes or features. 
 
-For our MovieLens example, feature 1 for chosen movie might be a number that says how close the movie is to pure sci-fi.
+For our MovieLens example, feature 1 for a chosen movie might be a number that says how close the movie is to pure sci-fi.
 
-> By multiplying the the features of the user by the features of each item and adding these items together, we will approximate what a user would rate a particular item
+> By multiplying the features of the user by the features of each item and adding these items together, we will approximate what a user would rate a particular item
 
 
 ## Introducing a Learning Function 
 
-The simplicity in Matrix Factorization is that we do not have know what these features are. Nor do we know how many (k) features are relevant. We pick a number for $k$ and learn the relevant values for all the features for all the users and items. This is essentially the same process used for dimensionality reduction with PCA.
+The simplicity in Matrix Factorization is that we do not have to know what these features are. Nor do we know how many (k) features are relevant. We pick a number for $k$ and learn the relevant values for all the features for all the users and items. This is essentially the same process used for dimensionality reduction with PCA.
 
 __How do we integrate learning into this problem? By minimizing a loss function, of course__
 
@@ -54,13 +54,13 @@ $$r̂_{u,i}=q_i^⊤p_u $$ for individual ratings
 - $r̂_{u,i}$ represents our prediction for the true rating $r_{ui}$ In order to get an individual rating, you must take the dot product of a row of P and a column of Q
 
 
-These user and item vectors are called **latent vectors**. The $k$ attributes are called the **latent factors**.
+These user and item vectors are called **latent vectors**. The $k$ attributes are called **latent factors**.
 
 The image below is a representation of how a matrix is decomposed into two separate matrices. 
 
 ![](mllib.jpg)
 
-If we wanted calculate the rating for user B, item W. Our calculation would be the dot product of `[-1.03 , 1.62, 0.21]` and `[-0.78,0.89,-1.47]`. Let's calculate these values in numpy. 
+If we wanted to calculate the rating for user B, item W. Our calculation would be the dot product of `[-1.03 , 1.62, 0.21]` and `[-0.78,0.89,-1.47]`. Let's calculate these values in numpy. 
 
 
 ```python
@@ -137,7 +137,7 @@ For ALS minimization, we hold one set of latent vectors constant. Essentially AL
 
 If we assume either the user-factors or item-factors was fixed, this should be just like a regularised least square problem. Let's look at these least square equations written out mathematically.
 
-First lets assume first the item vectors are fixed, we first solve for the user vectors:
+First let's assume first the item vectors are fixed, we first solve for the user vectors:
 
 ### __$$p_u=(\sum_{r_{u,i}\in r_{u*}}{q_iq_i^T + \lambda I_k})^{-1}\sum_{r_{u,i}\in r_{u*}}{r_{ui}{q_{i}}}$$__
 
@@ -155,13 +155,13 @@ Above two steps are iterated until convergence OR some stopping criterion is rea
 
 ## Modification to Include Bias
 
-Although this can produce great results own, but it doesn't take into account trends related different characteristics related to certain items, users and the data as a whole. To account for this, more advanced implementations of ALS include a __bias__ term to capture some of these aspects of the overall utility matrix. A common implementation of this is captured with 3 bias terms:
+Although this can produce great results on its own, it doesn't take into account trends related to different characteristics of certain items and certain users as well as the data as a whole. To account for this, more advanced implementations of ALS include a __bias__ term to capture some of these aspects of the overall utility matrix. A common implementation of this is captured with 3 bias terms:
 
 * $\mu$ : a global average - the overall average rating of all items
 * $b_{i}$ : item bias - the deviations of item i from the average
 * $b_{u}$ : user bias - the deviations of user u from the average
 
-Let's look at a basic example of how this would work. Imagine we're trying to calculate the rating for the *The Shawshank Redemption* for user Matt. Assume the overall average rating is 3.5 and that * The Shawshank Redemption* tends to be rated 0.4 points higher than average. Matt is a generous rater, and tends to rate 0.2 higher than the average. This would make his rating for the Shawshank Redemption 3.5 + 0.4 + 0.2 = 4.1 
+Let's look at a basic example of how this would work. Imagine we're trying to calculate the rating for *The Shawshank Redemption* for user Matt. Assume the overall average rating is 3.5 and that * The Shawshank Redemption* tends to be rated 0.4 points higher than average. Matt is a generous rater and tends to rate 0.2 higher than the average. This would make his rating for the Shawshank Redemption 3.5 + 0.4 + 0.2 = 4.1 
 
 Putting these biases into an equation becomes:
 
@@ -173,7 +173,7 @@ and the overall loss function becomes:
 
 ## ALS v SVD
 
-ALS is generally less computationally efficient than directly computing the SVD solution, but it shines when you are dealing with giant, sparse matrices. SVD requires that all entries of the matrix be observed, and this is not a requirement with ALS. Because of ALS's "alternating" nature, it lends itself to performing comnputations in parallel. This can make it extremely beneficial to use distributed computing when using ALS. Do you remember anything that works in parallel? Spark!
+ALS is generally less computationally efficient than directly computing the SVD solution, but it shines when you are dealing with a giant, sparse matrices. SVD requires that all entries of the matrix be observed, and this is not a requirement with ALS. Because of ALS's "alternating" nature, it lends itself to performing computations in parallel. This can make it extremely beneficial to use distributed computing when using ALS. Do you remember anything that works in parallel? Spark!
 
 ## ALS in Spark 
 
@@ -188,4 +188,4 @@ As we will see in our next lab, Spark's machine learning library `ml` offers an 
 
 ## Summary 
 
-In this lesson, we looked at another matrixd factorization technique, called alternating least squares and learned how we can train such a model to minimize a loss function, based on least squares. Let's try what we have seen so far in the spark environment in the last lab for this section. 
+In this lesson, we looked at another matrix factorization technique, called alternating least squares and learned how we can train such a model to minimize a loss function, based on least squares. Let's try what we have seen so far in the spark environment in the last lab for this section. 
