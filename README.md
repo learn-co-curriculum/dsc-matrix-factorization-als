@@ -62,6 +62,8 @@ The image below is a representation of how a matrix is decomposed into two separ
 
 If we wanted to calculate the rating for user B, item W. Our calculation would be the dot product of `[-1.03 , 1.62, 0.21]` and `[-0.78,0.89,-1.47]`. Let's calculate these values in numpy. 
 
+
+```python
 import numpy as np
 
 # users X factors
@@ -69,30 +71,71 @@ P =np.array([[-0.63274434,  1.33686735, -1.55128517],
        [-2.23813661,  0.5123861 ,  0.14087293],
        [-1.0289794 ,  1.62052691,  0.21027516],
        [-0.06422255,  1.62892864,  0.33350709]])
+```
 
+
+```python
 # factors X items
 Q = np.array([[-2.09507374,  0.52351075,  0.01826269],
        [-0.45078775, -0.07334991,  0.18731052],
        [-0.34161766,  2.46215058, -0.18942263],
        [-1.0925736 ,  1.04664756,  0.69963111],
        [-0.78152923,  0.89189076, -1.47144019]])
+```
 
+
+```python
 # the original 
 R = np.array([[2, np.nan, np.nan, 1, 4],
        [5, 1, 2, np.nan, 2],
        [3, np.nan, np.nan, 3, np.nan],
        [1, np.nan, 4, 2, 1]])
+```
 
 
+```python
 print(P[2])
+```
+
+    [-1.0289794   1.62052691  0.21027516]
+
+
+
+```python
 print(Q.T[:,4])
+```
+
+    [-0.78152923  0.89189076 -1.47144019]
+
+
+
+```python
 P[2].dot(Q.T[:,4])
+```
+
+
+
+
+    1.9401031341455333
+
+
 
 Now we can do the calculation for the entire matrix ratings matrix. You can see that the values in the predicted matrix are *very* close to the actual ratings for those that are present in the original rating array. The other values are new! 
 
 
-
+```python
 P.dot(Q.T)
+```
+
+
+
+
+    array([[ 1.99717984, -0.10339773,  3.80157388,  1.00522135,  3.96947118],
+           [ 4.95987359,  0.99772807,  1.9994742 ,  3.08017572,  1.99887552],
+           [ 3.00799117,  0.38437256,  4.30166793,  2.96747131,  1.94010313],
+           [ 0.99340337, -0.02806164,  3.96943336,  2.00841398,  1.01228247]])
+
+
 
 This should remind you of how things were calculated for the SVD array, so let's see what is different. We want our predictions to be as close to the truth as possible. In order to calculate these matrices, we establish a loss function in order to minimize. To avoid overfitting, the loss function also includes a regularization parameter $\lambda$.  We will choose a $\lambda$ to minimize the square of the difference between all ratings in our dataset $R$ and our predictions. 
 
