@@ -1,9 +1,8 @@
-
 # Matrix Factorization with Alternating Least Squares
 
 ## Introduction 
 
-In this lesson, we will look at another matrix factorization technique called Alternating Least Squares (ALS). This method can prove to be much more effective and robust than the SVD we saw earlier. ALS allows you to set regularization measures and minimize a loss function while optimizing the model parameter `k`.  We will briefly look at the math behind this approach in this lesson, before putting it into practice next with spark. 
+In this lesson, we will look at another matrix factorization technique called Alternating Least Squares (ALS). This method can prove to be much more effective and robust than the SVD we saw earlier. ALS allows you to set regularization measures and minimize a loss function while optimizing the model parameter `k`.  We will look at the math behind this approach in this lesson. 
 
 ## Objectives
 
@@ -186,19 +185,12 @@ and the overall loss function becomes:
 
 ## ALS vs SVD
 
-ALS is generally less computationally efficient than directly computing the SVD solution, but it shines when you are dealing with giant, sparse matrices. SVD requires that all entries of the matrix be observed, and this is not a requirement with ALS. Because of ALS's "alternating" nature, it lends itself to performing computations in parallel. This can make it extremely beneficial to use distributed computing when using ALS. Do you remember anything that works in parallel? Spark!
-
-## ALS in Spark 
-
-As we will see in our next lab, Spark's machine learning library `ml` offers an implementation of alternating least squares algorithm out of the box. It factors the user to item matrix $A$ into the user-to-feature matrix $U$ and the item-to-feature matrix $M$. It runs the ALS algorithm in a parallel fashion. The ALS algorithm helps uncover the latent factors for big data in a distributed computation setup. It explains the observed user to item ratings and tries to find optimal factor weights to minimize the least squares between predicted and actual ratings while the data is split in a cluster of computers.
-
+ALS is generally less computationally efficient than directly computing the SVD solution, but it shines when you are dealing with giant, sparse matrices. SVD requires that all entries of the matrix be observed, and this is not a requirement with ALS. Because of ALS's "alternating" nature, it lends itself to performing computations in parallel. This can make it extremely beneficial to use distributed computing when using ALS.
 
 ## Additional Resources
 - [A detailed explanation of ALS](https://datasciencemadesimpler.wordpress.com/tag/alternating-least-squares/)
-- [Great video on recommendation systems in Spark](https://sparkhub.databricks.com/video/a-more-scalable-way-of-making-recommendations-with-mllib/)
 - [The math behind ALS](http://stanford.edu/~rezab/classes/cme323/S15/notes/lec14.pdf)
-- [Spark ALS for Kaggle Santander competition](https://www.elenacuoco.com/2016/12/22/alternating-least-squares-als-spark-ml/)
 
 ## Summary 
 
-In this lesson, we looked at another matrix factorization technique, called alternating least squares and learned how we can train such a model to minimize a loss function, based on least squares. Let's try what we have seen so far in the Spark environment in the last lab for this section. 
+In this lesson, we looked at another matrix factorization technique, called alternating least squares and learned how we can train such a model to minimize a loss function, based on least squares.
