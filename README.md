@@ -57,7 +57,7 @@ These user and item vectors are called **latent vectors**. The $k$ attributes ar
 
 The image below is a representation of how a matrix is decomposed into two separate matrices:  
 
-![](images/decomposed.png)
+![](https://curriculum-content.s3.amazonaws.com/data-science/images/decomposed.png)
 
 If we wanted to calculate the rating for user $B$, item $Z$, our calculation would be the dot product of `[-1.03 , 1.62, 0.21]` and `[-0.78,0.89,-1.47]`. Let's calculate these values in NumPy:  
 
